@@ -1,0 +1,13 @@
+fastapi
+uvicorn
+sqlalchemy
+psycopg2-binary
+python-dotenv
+slowapi
+python-jose
+passlib
+fastapi_mail
+pydantic
+fastapi-limiter
+redis
+python-multipart
