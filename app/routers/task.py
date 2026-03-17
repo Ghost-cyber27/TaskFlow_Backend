@@ -40,6 +40,10 @@ def get_my_task(
         .filter(models.Task.user_id == current_user.id)
         .all()
     )
+    for t in tasks:
+        t.title = t.title or ""
+        t.description = t.description or ""
+        t.status = t.status or ""
     return tasks
 
 @router.get("/{task_id}", response_model=schemas.TaskResponse)
