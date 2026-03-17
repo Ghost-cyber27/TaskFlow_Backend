@@ -65,6 +65,15 @@ def update_task(request: Request,task_id: int, task_update: schemas.TaskUpdate, 
     db.commit()
     db.refresh(task)
     return task
+
+@router.put("/{task_id}/{status}", response_model=schemas.TaskResponse)
+def update_task(request: Request,task_id: int, status: str, db: Session = Depends(get_db)):
+    task = db.query(models.Task).filter(models.Task.id == task_id).first()
+
+    task.status = status
+    db.commit()
+    db.refresh(task)
+    return task
     
 @router.delete("/{task_id}", status_code=204)
 @limiter.limit("10/minute")
