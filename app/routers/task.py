@@ -82,7 +82,7 @@ def update_task(request: Request,task_id: int, status: str, db: Session = Depend
 @router.delete("/{task_id}", status_code=204)
 @limiter.limit("10/minute")
 def delete_task(request: Request,task_id: int, db: Session = Depends(get_db)):
-    task = db.query(models.Job).filter(models.Task.id == task_id).first()
+    task = db.query(models.Task).filter(models.Task.id == task_id).first()
     if not task:
         raise HTTPException(status_code=404, detail="Task not found")
     db.delete(task)
