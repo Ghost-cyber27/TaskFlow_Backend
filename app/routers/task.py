@@ -55,8 +55,12 @@ def update_task(request: Request,task_id: int, task_update: schemas.TaskUpdate, 
     task = db.query(models.Task).filter(models.Task.id == task_id).first()
     if not task:
         raise HTTPException(stauts_code=404, detail="Task not found")
-    for key, value in task_update.model_dump(exclude_unset=True).items():
-        setattr(task, key, value)
+    if task.title is not None:
+        db_task.title = task.title
+    if task.description is not None:
+        db_task.description = task.description
+    if task.status is not None:
+        db_task.status = task.status
     
     db.commit()
     db.refresh(task)
